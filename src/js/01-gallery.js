@@ -3,58 +3,31 @@ import { galleryItems } from './gallery-items';
 // Change code below this line
 
 console.log(galleryItems);
-const galleryContainer = document.querySelector('.gallery');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const galleryItemsMarkup = creatGalleryItemsMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML('beforeend', galleryItemsMarkup);
+const galleryContainer = document.querySelector('.gallery');
+console.log(galleryContainer);
+
+const GalleryItemsMarkup = creatGalleryItemsMarkup(galleryItems);
+galleryContainer.insertAdjacentHTML('beforeend', GalleryItemsMarkup);
 
 function creatGalleryItemsMarkup(images) {
   return images
     .map(({ preview, original, description } = {}) => {
       return `
-    <div class="gallery__item">
-        <a class="gallery__link" href="${original}">
-            <img
-                class="gallery__image"
-                src="${preview}"
-                data-source="${original}"
-                alt="${description}"
-            />
+      <div class="gallery__item">
+        <a  href="${original}">
+            <img class="gallery__image" src="${preview}" alt="${description}" />
         </a>
-    </div>
-    `;
+        </div>
+        `;
     })
     .join('');
   console.log(markup);
 }
 
-let instance;
-
-galleryContainer.addEventListener('click', onImageClick);
-function onImageClick(event) {
-  event.preventDefault();
-
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  instance = basicLightbox.create(`
-    <div class="modal">
-        <img src="${event.target.dataset.source}" width="800" height="600">
-    </div>
-`);
-  instance.show();
-
-  window.addEventListener('keydown', onEscBtnPush);
-}
-
-// Закриття мoдалки по Escape
-
-function onEscBtnPush(event) {
-  if (event.code !== 'Escape') {
-    return;
-  }
-
-  instance.close();
-  window.removeEventListener('keydown', onEscBtnPush);
-}
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
