@@ -2,12 +2,10 @@
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
-console.log(galleryItems);
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.gallery');
-console.log(galleryContainer);
 
 const GalleryItemsMarkup = creatGalleryItemsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', GalleryItemsMarkup);
