@@ -24,7 +24,6 @@ function creatGalleryItemsMarkup(images) {
         `;
     })
     .join('');
-  console.log(markup);
 }
 
 const lightbox = new SimpleLightbox('.gallery a', {
